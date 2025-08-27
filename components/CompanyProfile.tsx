@@ -189,7 +189,7 @@ export default function CompanyProfile() {
                 {isEditing && (
                   <button
                     type="button"
-                    onClick={() => document.querySelector('input[type="file"]')?.click()}
+                    onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
                     className="btn-secondary text-sm"
                   >
                     Choose File
