@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient as supabaseCreateClient } from '@supabase/supabase-js'
 
 // Supabase configuration with your credentials
 const supabaseUrl = 'https://xuodlnombdgnzwtclxam.supabase.co'
@@ -13,8 +13,16 @@ if (!finalSupabaseUrl || !finalSupabaseAnonKey) {
   console.warn('Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your .env.local file')
 }
 
+// Export the createClient function for use in API routes
+export const createClient = () => {
+  if (!finalSupabaseUrl || !finalSupabaseAnonKey) {
+    return null
+  }
+  return supabaseCreateClient(finalSupabaseUrl, finalSupabaseAnonKey)
+}
+
 export const supabase = finalSupabaseUrl && finalSupabaseAnonKey 
-  ? createClient(finalSupabaseUrl, finalSupabaseAnonKey)
+  ? supabaseCreateClient(finalSupabaseUrl, finalSupabaseAnonKey)
   : null
 
 export interface Invoice {

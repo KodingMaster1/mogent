@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 // Mock company profile data for demo mode
 const mockCompanyProfile = {
@@ -23,8 +23,6 @@ const mockCompanyProfile = {
 
 export async function GET() {
   try {
-    const supabase = createClient()
-    
     if (!supabase) {
       // Demo mode - return mock data
       return NextResponse.json(mockCompanyProfile)
@@ -49,7 +47,6 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient()
     const body = await request.json()
     
     if (!supabase) {
