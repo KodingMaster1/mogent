@@ -40,6 +40,7 @@ export interface Invoice {
   remarks: string
   account_name: string
   account_no: string
+  status?: string
   created_at?: string
 }
 
@@ -111,6 +112,7 @@ export const mockData = {
       description: 'HP LaserJet 106A Compatible Toner Cartridge',
       sku: 'TON-106A-001',
       category: 'Office Supplies',
+      unit: 'pcs',
       cost: 120000,
       price: 150000,
       stock_quantity: 50,
@@ -125,6 +127,7 @@ export const mockData = {
       description: 'HP LaserJet 151A Compatible Toner Cartridge',
       sku: 'TON-151A-001',
       category: 'Office Supplies',
+      unit: 'pcs',
       cost: 250000,
       price: 300000,
       stock_quantity: 30,

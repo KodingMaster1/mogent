@@ -84,11 +84,11 @@ export default function InvoiceList() {
   const filteredInvoices = invoices.filter(invoice => {
     const matchesSearch = invoice.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          invoice.proforma_no.toString().includes(searchTerm)
-    const matchesFilter = filterStatus === 'all' || invoice.status === filterStatus
+    const matchesFilter = filterStatus === 'all' || (invoice.status || 'draft') === filterStatus
     return matchesSearch && matchesFilter
   })
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status?: string) => {
     switch (status) {
       case 'paid':
         return <span className="status-paid">Paid</span>
@@ -248,8 +248,8 @@ export default function InvoiceList() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {filteredInvoices.map((invoice) => (
-                  <tr key={invoice.id} className="hover:bg-gray-50">
+                {filteredInvoices.map((invoice, index) => (
+                  <tr key={invoice.id || `temp-${index}`} className="hover:bg-gray-50">
                     <td className="table-cell">
                       <div>
                         <p className="font-medium text-gray-900">#{invoice.proforma_no}</p>
@@ -275,7 +275,7 @@ export default function InvoiceList() {
                     <td className="table-cell">
                       <div className="flex items-center space-x-2">
                         <button
-                          onClick={() => router.push(`/invoices/${invoice.id}`)}
+                          onClick={() => invoice.id && router.push(`/invoices/${invoice.id}`)}
                           className="p-1 text-blue-600 hover:text-blue-800 transition-colors"
                           title="View Invoice"
                         >
@@ -289,7 +289,7 @@ export default function InvoiceList() {
                           <Download className="w-4 h-4" />
                         </button>
                         <button
-                          onClick={() => handleDelete(invoice.id)}
+                          onClick={() => invoice.id && handleDelete(invoice.id)}
                           disabled={!supabase}
                           className="p-1 text-red-600 hover:text-red-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           title="Delete Invoice"

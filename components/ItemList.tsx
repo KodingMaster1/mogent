@@ -115,7 +115,7 @@ export default function ItemList() {
   }
 
   const getCategories = () => {
-    const categories = [...new Set((Array.isArray(items) ? items : []).map(item => item.category))]
+    const categories = Array.from(new Set((Array.isArray(items) ? items : []).map(item => item.category)))
     return categories.sort()
   }
 
