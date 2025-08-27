@@ -4,6 +4,12 @@ import { Invoice } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json({ 
+        message: 'Demo mode: Invoice would be created'
+      })
+    }
+
     const invoice: Invoice = await request.json()
 
     // Insert invoice into database
@@ -63,6 +69,13 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
+    if (!supabase) {
+      return NextResponse.json({ 
+        invoices: [],
+        message: 'Demo mode: No database connection'
+      })
+    }
+
     const { data: invoices, error } = await supabase
       .from('invoices')
       .select(`
