@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auto-push": "scripts/auto-push.bat",
+    "auto-push-linux": "bash scripts/auto-push.sh"
   },
   "dependencies": {
     "next": "14.0.4",

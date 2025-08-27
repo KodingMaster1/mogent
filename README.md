@@ -1,191 +1,224 @@
-# Proforma Invoice Generator
+# MOGENT Business Management System
 
-A modern, full-stack web application for generating professional proforma invoices for MOGENT TANZANIA LIMITED. Built with Next.js, Supabase, and Tailwind CSS.
+A comprehensive business management system built with Next.js 14, TypeScript, Tailwind CSS, and Supabase. Features include client management, vendor management, inventory tracking, and professional proforma invoice generation.
 
-## Features
+## 🚀 Features
 
-- 🎨 **Exact Design Match**: Replicates the original invoice design 100%
-- 📝 **Dynamic Form**: Add/remove items, automatic calculations
-- 💾 **Database Storage**: Save invoices to Supabase
-- 📄 **Print Ready**: Professional print formatting
-- 📱 **Responsive Design**: Works on all devices
-- 🔍 **Invoice History**: View and manage saved invoices
-- ⚡ **Real-time Preview**: See changes instantly
+### Core Modules
+- **Dashboard**: Overview with key metrics and recent activities
+- **Clients Management**: Add, edit, delete, and search clients
+- **Vendors Management**: Manage supplier information
+- **Inventory Management**: Track items, stock levels, and costs
+- **Invoice Generation**: Create professional proforma invoices
+- **Company Profile**: Manage company information and logo
+- **Settings**: System configuration and preferences
 
-## Tech Stack
+### Invoice Features
+- **Auto-generated Proforma Numbers**: Sequential numbering system
+- **Professional Design**: A4 optimized layout for printing
+- **Client Auto-complete**: Search and select clients with auto-fill
+- **Item Management**: Dynamic item lists with calculations
+- **Print & PDF Export**: Ready for professional printing
+- **VAT Calculations**: Automatic tax calculations
+
+### Technical Features
+- **Responsive Design**: Works on all devices
+- **Dark Green Theme**: Professional business appearance
+- **Real-time Validation**: Form validation and error handling
+- **Demo Mode**: Works without database setup
+- **Auto-save**: Automatic file saving and version control
+
+## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Tailwind CSS
 - **Database**: Supabase (PostgreSQL)
-- **Form Handling**: React Hook Form
+- **Forms**: React Hook Form
 - **Icons**: Lucide React
 - **Notifications**: React Hot Toast
+- **PDF**: jsPDF, html2canvas
 - **Deployment**: Vercel
 
-## Prerequisites
+## 📦 Installation
 
+### Prerequisites
 - Node.js 18+ 
 - npm or yarn
-- Supabase account
+- Git
 
-## Setup Instructions
+### Quick Start
 
-### 1. Clone the Repository
+1. **Clone the repository**
+   ```bash
+   git clone git@github.com:KodingMaster1/mogent.git
+   cd mogent
+   ```
 
-```bash
-git clone <your-repo-url>
-cd proforma-invoice-generator
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### 2. Install Dependencies
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-```bash
-npm install
-# or
-yarn install
-```
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-### 3. Set Up Supabase
+## 🔧 Configuration
 
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to Settings > API to get your project URL and anon key
-3. Create the following tables in your Supabase database:
-
-#### Invoices Table
-```sql
-CREATE TABLE invoices (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  customer_name TEXT NOT NULL,
-  customer_address TEXT NOT NULL,
-  customer_country TEXT NOT NULL,
-  invoice_date DATE NOT NULL,
-  proforma_no INTEGER NOT NULL,
-  tin_no TEXT NOT NULL,
-  subtotal DECIMAL(15,2) NOT NULL,
-  vat DECIMAL(15,2) NOT NULL,
-  total DECIMAL(15,2) NOT NULL,
-  remarks TEXT,
-  account_name TEXT NOT NULL,
-  account_no TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
-
-#### Invoice Items Table
-```sql
-CREATE TABLE invoice_items (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  invoice_id UUID REFERENCES invoices(id) ON DELETE CASCADE,
-  sn INTEGER NOT NULL,
-  particulars TEXT NOT NULL,
-  qty INTEGER NOT NULL,
-  unit TEXT NOT NULL,
-  price_per_unit DECIMAL(15,2) NOT NULL,
-  total DECIMAL(15,2) NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
-
-### 4. Environment Variables
-
+### Environment Variables (Optional)
 Create a `.env.local` file in the root directory:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### 5. Run the Development Server
+**Note**: The application works in demo mode without these variables.
 
+### Database Setup (Optional)
+1. Create a Supabase project
+2. Run the SQL commands from `database-schema.sql`
+3. Add environment variables
+4. Restart the development server
+
+## 🚀 Auto-Push Setup
+
+### GitHub Actions (Automatic)
+The repository includes GitHub Actions workflows that automatically:
+- Build the project on push
+- Run tests
+- Auto-commit and push changes
+
+### Local Auto-Push
+
+#### Windows
 ```bash
-npm run dev
-# or
-yarn dev
+npm run auto-push
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+#### Linux/Mac
+```bash
+npm run auto-push-linux
+```
 
-## Usage
+#### Manual Scripts
+```bash
+# Windows
+scripts/auto-push.bat
 
-### Creating an Invoice
+# Linux/Mac
+bash scripts/auto-push.sh
+```
 
-1. Navigate to the home page
-2. Fill in customer information
-3. Add invoice items (quantity, price, etc.)
-4. Review the real-time preview
-5. Click "Generate Invoice" to save
-6. Use "Print Invoice" for professional output
+### VS Code Integration
+1. **Auto-save**: Files are automatically saved after 1 second
+2. **Tasks**: Use `Ctrl+Shift+P` → "Tasks: Run Task" → "Auto Push to GitHub"
+3. **Keyboard Shortcuts**: 
+   - `Ctrl+Shift+P` → "Git: Add All"
+   - `Ctrl+Shift+P` → "Git: Commit"
+   - `Ctrl+Shift+P` → "Git: Push"
 
-### Viewing Invoice History
-
-1. Click "Invoice History" in the navigation
-2. Browse saved invoices
-3. Click on any invoice to view details
-4. Print individual invoices as needed
-
-## Deployment
-
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically
-
-### Environment Variables for Production
-
-Make sure to add the same environment variables in your Vercel project settings:
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-
-## Project Structure
+## 📁 Project Structure
 
 ```
-├── app/                    # Next.js app directory
+mogent/
+├── app/                    # Next.js App Router
 │   ├── api/               # API routes
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
+│   ├── clients/           # Client pages
+│   ├── vendors/           # Vendor pages
+│   ├── items/             # Item pages
+│   ├── invoices/          # Invoice pages
+│   └── settings/          # Settings pages
 ├── components/            # React components
-│   ├── InvoiceForm.tsx    # Main form component
-│   ├── InvoicePreview.tsx # Invoice preview
-│   ├── InvoiceList.tsx    # Invoice history
-│   └── Navigation.tsx     # Navigation bar
-├── lib/                   # Utility functions
-│   └── supabase.ts        # Supabase client
-└── public/                # Static assets
+├── lib/                   # Utilities and configurations
+├── scripts/               # Auto-push scripts
+├── .github/               # GitHub Actions
+└── .vscode/               # VS Code configuration
 ```
 
-## Customization
+## 🎯 Key Components
 
-### Styling
-- Modify `tailwind.config.js` for theme changes
-- Update `app/globals.css` for custom styles
-- Edit component styles in individual files
+### InvoiceForm
+- Auto-generates proforma numbers
+- Client search with auto-complete
+- Dynamic item management
+- Real-time calculations
 
-### Invoice Template
-- Update `components/InvoicePreview.tsx` for layout changes
-- Modify the MOTAL logo in CSS
-- Adjust colors in Tailwind config
+### InvoicePreview
+- A4 optimized layout
+- Professional design
+- Print-ready formatting
+- PDF export capability
 
-### Database Schema
-- Add new fields to Supabase tables
-- Update TypeScript interfaces in `lib/supabase.ts`
-- Modify API routes accordingly
+### CompanyProfile
+- Logo upload functionality
+- Company information management
+- Bank details configuration
+- Payment terms setup
 
-## Contributing
+## 🔄 Auto-Push Features
+
+### Automatic Operations
+- **File Monitoring**: Watches for file changes
+- **Auto-commit**: Commits changes with timestamps
+- **Auto-push**: Pushes to GitHub automatically
+- **Change Logging**: Tracks modified files
+
+### Manual Triggers
+- **VS Code Tasks**: Built-in tasks for git operations
+- **NPM Scripts**: Easy-to-use commands
+- **Batch/Script Files**: Cross-platform compatibility
+
+### Safety Features
+- **Change Detection**: Only commits when changes exist
+- **Error Handling**: Graceful failure handling
+- **Status Reporting**: Clear success/error messages
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Deploy automatically on push
+3. Environment variables are automatically configured
+
+### Manual Deployment
+```bash
+npm run build
+npm start
+```
+
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+4. Run tests: `npm test`
+5. Commit and push: `npm run auto-push`
+6. Create a pull request
 
-## License
+## 📝 License
 
 This project is licensed under the MIT License.
 
-## Support
+## 🆘 Support
 
-For support, please contact the development team or create an issue in the repository. 
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the demo mode functionality
+
+## 🎉 Demo Mode
+
+The application includes a comprehensive demo mode that works without any database setup:
+- Sample data for all modules
+- Full functionality demonstration
+- No configuration required
+- Perfect for testing and evaluation
+
+---
+
+**Built with ❤️ for MOGENT TANZANIA LIMITED** 
