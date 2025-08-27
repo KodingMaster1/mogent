@@ -1,16 +1,20 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Supabase configuration with your credentials
+const supabaseUrl = 'https://xuodlnombdgnzwtclxam.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1b2Rsbm9tYmRnbnp3dGNseGFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyODE5MjAsImV4cCI6MjA3MTg1NzkyMH0.fgnnYB0AMlF-CW54oamCi28jM2iFuXgrrT4LokWssQ0'
 
-// Check if environment variables are set
-if (!supabaseUrl || !supabaseAnonKey) {
+// Check if environment variables are set (fallback to hardcoded values)
+const finalSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || supabaseUrl
+const finalSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || supabaseAnonKey
+
+if (!finalSupabaseUrl || !finalSupabaseAnonKey) {
   console.warn('Supabase environment variables are not set. Database features will be disabled.')
   console.warn('Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your .env.local file')
 }
 
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = finalSupabaseUrl && finalSupabaseAnonKey 
+  ? createClient(finalSupabaseUrl, finalSupabaseAnonKey)
   : null
 
 export interface Invoice {
@@ -99,11 +103,11 @@ export const mockData = {
       description: 'HP LaserJet 106A Compatible Toner Cartridge',
       sku: 'TON-106A-001',
       category: 'Office Supplies',
-      unit: 'pcs',
-      price: 120000,
-      cost: 80000,
+      cost: 120000,
+      price: 150000,
       stock_quantity: 50,
       min_stock_level: 10,
+      vendor_id: '1',
       vendor_name: 'Tech Supplies Ltd',
       created_at: new Date().toISOString()
     },
@@ -113,11 +117,11 @@ export const mockData = {
       description: 'HP LaserJet 151A Compatible Toner Cartridge',
       sku: 'TON-151A-001',
       category: 'Office Supplies',
-      unit: 'pcs',
+      cost: 250000,
       price: 300000,
-      cost: 200000,
-      stock_quantity: 25,
+      stock_quantity: 30,
       min_stock_level: 5,
+      vendor_id: '1',
       vendor_name: 'Tech Supplies Ltd',
       created_at: new Date().toISOString()
     }
@@ -128,8 +132,8 @@ export const mockData = {
       customer_name: 'Hesu Investment Limited',
       customer_address: 'Plot No. 311/3/4, Block T, Taifa Rd, P.O.Box 2465',
       customer_country: 'Dar es Salaam, Tanzania',
-      invoice_date: '2025-08-13',
-      proforma_no: 152,
+      invoice_date: '2025-01-27',
+      proforma_no: '152',
       tin_no: '125-911-374',
       subtotal: 840000,
       vat: 151200,
@@ -137,7 +141,29 @@ export const mockData = {
       remarks: 'Being sale of toners',
       account_name: 'MOGENT TANZANIA LIMITED',
       account_no: '0150691988500',
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      items: [
+        {
+          id: '1',
+          invoice_id: '1',
+          sn: 1,
+          particulars: 'Toner - 106A',
+          qty: 2,
+          unit: 'pcs',
+          price_per_unit: 120000,
+          total: 240000
+        },
+        {
+          id: '2',
+          invoice_id: '1',
+          sn: 2,
+          particulars: 'Toner - 151A',
+          qty: 2,
+          unit: 'pcs',
+          price_per_unit: 300000,
+          total: 600000
+        }
+      ]
     }
   ]
 } 
