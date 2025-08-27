@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "auto-push": "scripts/auto-push.bat",
+    "auto-push": "scripts\\auto-push.bat",
     "auto-push-linux": "bash scripts/auto-push.sh"
   },
   "dependencies": {
