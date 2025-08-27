@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proforma Invoice Generator - MOGENT TANZANIA LIMITED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Proforma Invoice Generator</h1>
+            <p>MOGENT TANZANIA LIMITED</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Form -->
+            <div class="input-section">
+                <h2>Invoice Details</h2>
+                <form id="invoiceForm">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name:</label>
+                        <input type="text" id="customerName" value="Hesu Investment Limited" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Address:</label>
+                        <input type="text" id="customerAddress" value="Plot No. 311/3/4, Block T, Taifa Rd, P.O.Box 2465" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerCountry">Country:</label>
+                        <input type="text" id="customerCountry" value="Dar es Salaam, Tanzania" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="invoiceDate">Date:</label>
+                            <input type="date" id="invoiceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="proformaNo">Proforma No:</label>
+                            <input type="number" id="proformaNo" value="152" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tinNo">TIN No:</label>
+                            <input type="text" id="tinNo" value="125-911-374" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Items:</label>
+                        <div id="itemsContainer">
+                            <div class="item-row">
+                                <input type="number" class="item-sn" value="01" placeholder="S/N">
+                                <input type="text" class="item-particulars" value="Toner - 106A" placeholder="Particulars">
+                                <input type="number" class="item-qty" value="2" placeholder="Qty">
+                                <input type="text" class="item-unit" value="pcs" placeholder="Unit">
+                                <input type="number" class="item-price" value="120000" placeholder="Price per Unit">
+                                <input type="number" class="item-total" value="240000" placeholder="Total" readonly>
+                                <button type="button" class="remove-item">×</button>
+                            </div>
+                            <div class="item-row">
+                                <input type="number" class="item-sn" value="02" placeholder="S/N">
+                                <input type="text" class="item-particulars" value="Toner - 151A" placeholder="Particulars">
+                                <input type="number" class="item-qty" value="2" placeholder="Qty">
+                                <input type="text" class="item-unit" value="pcs" placeholder="Unit">
+                                <input type="number" class="item-price" value="300000" placeholder="Price per Unit">
+                                <input type="number" class="item-total" value="600000" placeholder="Total" readonly>
+                                <button type="button" class="remove-item">×</button>
+                            </div>
+                        </div>
+                        <button type="button" id="addItem">+ Add Item</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="remarks">Remarks:</label>
+                        <input type="text" id="remarks" value="Being sale of toners">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountName">Account Name:</label>
+                        <input type="text" id="accountName" value="MOGENT TANZANIA LIMITED" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accountNo">Account No:</label>
+                        <input type="text" id="accountNo" value="0150691988500" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="generateInvoice">Generate Invoice</button>
+                        <button type="button" id="printInvoice">Print Invoice</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Invoice Preview -->
+            <div class="preview-section">
+                <h2>Invoice Preview</h2>
+                <div id="invoicePreview" class="invoice-container">
+                    <!-- Invoice will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
